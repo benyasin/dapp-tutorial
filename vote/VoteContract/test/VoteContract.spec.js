@@ -1,25 +1,24 @@
-const U3Utils = require('u3-utils/dist/es5');
-const {createU3, format} = require('u3.js/src');
-const config = require('../config');
+const U3Utils = require("u3-utils/dist/es5");
+const { createU3, format } = require("u3.js/src");
+const config = require("../config");
 
-const chai = require('chai');
-require('chai')
-  .use(require('chai-as-promised'))
+const chai = require("chai");
+require("chai")
+  .use(require("chai-as-promised"))
   .should();
 
 const should = chai.should();
 
-describe('Test cases', function () {
+describe("Test cases", function() {
 
-  let creator = 'ben';
+  let creator = "ben";
 
-  it('candidates', async () => {
+  it("candidates", async () => {
     const u3 = createU3(config);
-
     await u3.transaction(creator, c => {
-      c.addCandidate('trump', {authorization: [`ben@active`]});
-      c.addCandidate('hillary', {authorization: [`ben@active`]});
-      c.addCandidate('obama', {authorization: [`ben@active`]});
+      c.addCandidate("trump", { authorization: [`ben@active`] });
+      c.addCandidate("hillary", { authorization: [`ben@active`] });
+      c.addCandidate("obama", { authorization: [`ben@active`] });
     });
 
     U3Utils.wait(3000);
@@ -30,129 +29,112 @@ describe('Test cases', function () {
       "json": true,
       "code": creator,
       "scope": candiscope,
-      "table": canditable,
+      "table": canditable
     });
-    console.log(candidates)
     candidates.rows.length.should.equal(3);
   });
 
-  it('ben-voting-trump', async () => {
-
-    let account = 'ben';
+  it("ben-voting-trump", async () => {
     const u3 = createU3(config);
 
     const votingtable = "votes";
     const votingscope = "s.votes";
-    let votings = await u3.getTableRecords({
+    await u3.getTableRecords({
       "json": true,
       "code": creator,
       "scope": votingscope,
-      "table": votingtable,
+      "table": votingtable
     });
-    console.log(votings)
 
     let contract = await u3.contract(creator);
-    await contract.vote('trump', {authorization: [`ben@active`]});
+    await contract.vote("trump", { authorization: [`ben@active`] });
 
     U3Utils.wait(3000);
 
-    let votings_after = await u3.getTableRecords({
+    await u3.getTableRecords({
       "json": true,
       "code": creator,
       "scope": votingscope,
-      "table": votingtable,
+      "table": votingtable
     });
-    console.log(votings_after)
   });
 
-  it('bob-voting-hillary', async () => {
-
-    let account = 'bob';
-    config.keyProvider = '5JoQtsKQuH8hC9MyvfJAqo6qmKLm8ePYNucs7tPu2YxG12trzBt'
+  it("bob-voting-hillary", async () => {
+    config.keyProvider = "5JoQtsKQuH8hC9MyvfJAqo6qmKLm8ePYNucs7tPu2YxG12trzBt";
     const u3 = createU3(config);
 
     const votingtable = "votes";
     const votingscope = "s.votes";
-    let votings = await u3.getTableRecords({
+    await u3.getTableRecords({
       "json": true,
       "code": creator,
       "scope": votingscope,
-      "table": votingtable,
+      "table": votingtable
     });
-    console.log(votings)
 
     let contract = await u3.contract(creator);
-    await contract.vote('hillary', {authorization: [`bob@active`]});
+    await contract.vote("hillary", { authorization: [`bob@active`] });
 
     U3Utils.wait(3000);
 
-    let votings_after = await u3.getTableRecords({
+    await u3.getTableRecords({
       "json": true,
       "code": creator,
       "scope": votingscope,
-      "table": votingtable,
+      "table": votingtable
     });
-    console.log(votings_after)
   });
 
-  it('jack-voting-obama', async () => {
-
-    let account = 'jack';
-    config.keyProvider = '5JC2uWa7Pba5V8Qmn1pQPWKDPgwmRSYeZzAxK48jje6GP5iMqmM'
+  it("jack-voting-obama", async () => {
+    config.keyProvider = "5JC2uWa7Pba5V8Qmn1pQPWKDPgwmRSYeZzAxK48jje6GP5iMqmM";
     const u3 = createU3(config);
 
     const votingtable = "votes";
     const votingscope = "s.votes";
-    let votings = await u3.getTableRecords({
+    await u3.getTableRecords({
       "json": true,
       "code": creator,
       "scope": votingscope,
-      "table": votingtable,
+      "table": votingtable
     });
-    console.log(votings)
 
     let contract = await u3.contract(creator);
-    await contract.vote('obama', {authorization: [`jack@active`]});
+    await contract.vote("obama", { authorization: [`jack@active`] });
 
     U3Utils.wait(3000);
 
-    let votings_after = await u3.getTableRecords({
+    await u3.getTableRecords({
       "json": true,
       "code": creator,
       "scope": votingscope,
-      "table": votingtable,
+      "table": votingtable
     });
-    console.log(votings_after)
   });
 
-  it('alice-voting-trump', async () => {
-
-    let account = 'alice';
-    config.keyProvider = '5J9bWm2ThenDm3tjvmUgHtWCVMUdjRR1pxnRtnJjvKA4b2ut5WK'
+  it("alice-voting-trump", async () => {
+    config.keyProvider = "5J9bWm2ThenDm3tjvmUgHtWCVMUdjRR1pxnRtnJjvKA4b2ut5WK";
     const u3 = createU3(config);
 
     const votingtable = "votes";
     const votingscope = "s.votes";
-    let votings = await u3.getTableRecords({
+    await u3.getTableRecords({
       "json": true,
       "code": creator,
       "scope": votingscope,
-      "table": votingtable,
+      "table": votingtable
     });
-    console.log(votings)
 
     let contract = await u3.contract(creator);
-    await contract.vote('trump', {authorization: [`alice@active`]});
+    await contract.vote("trump", { authorization: [`alice@active`] });
 
     U3Utils.wait(3000);
 
-    let votings_after = await u3.getTableRecords({
+    await u3.getTableRecords({
       "json": true,
       "code": creator,
       "scope": votingscope,
-      "table": votingtable,
+      "table": votingtable
     });
-    console.log(votings_after)
   });
 
 });

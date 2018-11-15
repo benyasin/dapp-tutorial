@@ -52,20 +52,16 @@
             return {
                 candidate: "",
                 voteFormShow: false,
-
                 votes: [],
                 candidates: [],
-
                 voterName: '',
                 privateKey: '',
-
                 showLoading: false
             }
         },
         async mounted() {
             let account = 'ben';
             const u3 = createU3(config);
-
             const canditable = "candidate";
             const candiscope = "s.candidate";
             let candidates = await u3.getTableRecords({
@@ -75,7 +71,6 @@
                 "table": canditable,
             });
             this.candidates = candidates.rows;
-
 
             const votestable = "votes";
             const votesscope = "s.votes";
@@ -105,10 +100,8 @@
                     let creator = 'ben';
                     config.keyProvider = this.privateKey;
                     const u3 = createU3(config);
-
                     let contract = await u3.contract(creator);
                     let tx = await contract.vote(this.candidate, {authorization: this.voterName + '@active'});
-
                     this.showLoading = true;
 
                     //wait util it was packed in a block
