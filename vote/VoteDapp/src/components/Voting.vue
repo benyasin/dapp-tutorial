@@ -13,7 +13,7 @@
             <td>Count</td>
             </th></thead>
             <tbody>
-            <tr v-for="v,index in votes">
+            <tr v-bind:key="v.name" v-for="(v,index) in votes">
                 <td>{{index+1}}</td>
                 <td>{{v.name}}</td>
                 <td>{{v.count}}</td>
@@ -27,7 +27,7 @@
             <div class="form-inline">
                 <select v-model="candidate">
                     <option value="">Choose a candidate</option>
-                    <option v-for="c in candidates">{{c.name}}</option>
+                    <option v-bind:key="c.name" v-for="c in candidates">{{c.name}}</option>
                 </select>
             </div>
 
@@ -38,7 +38,7 @@
                 <label>PrivateKey</label><input v-model="privateKey"/>
             </div>
 
-            <button disabled="showLoading" v-show="candidate" class="vote-btn" @click="vote()">{{ showLoading?'waiting...':'Send votes' }}</button>
+            <button :disabled="showLoading" v-show="candidate" class="vote-btn" @click="vote()">{{ showLoading?'waiting...':'Send votes' }}</button>
         </div>
     </div>
 </template>
@@ -117,7 +117,7 @@
                         await new Promise(res => setTimeout(res, 1000))
                         tx_trace = await u3.getTxByTxId(tx.transaction_id);
                         if (tx_trace.irreversible) {
-                            console.log(tx);
+                            //console.log(tx);
                             this.showLoading = false;
                             alert('Voted success');
                             document.location.reload()
