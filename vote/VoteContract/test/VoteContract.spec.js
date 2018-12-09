@@ -1,4 +1,4 @@
-const U3Utils = require("u3-utils/dist/es5");
+const U3Utils = require("u3-utils/src");
 const { createU3, format } = require("u3.js/src");
 const config = require("../config");
 
@@ -21,7 +21,7 @@ describe("Test cases", function() {
       c.addCandidate("obama", { authorization: [`ben@active`] });
     });
 
-    U3Utils.wait(3000);
+    U3Utils.test.wait(3000);
 
     const canditable = "candidate";
     const candiscope = "s.candidate";
@@ -49,7 +49,7 @@ describe("Test cases", function() {
     let contract = await u3.contract(creator);
     await contract.vote("trump", { authorization: [`ben@active`] });
 
-    U3Utils.wait(3000);
+    U3Utils.test.wait(3000);
 
     await u3.getTableRecords({
       "json": true,
@@ -75,7 +75,7 @@ describe("Test cases", function() {
     let contract = await u3.contract(creator);
     await contract.vote("hillary", { authorization: [`bob@active`] });
 
-    U3Utils.wait(3000);
+    U3Utils.test.wait(3000);
 
     await u3.getTableRecords({
       "json": true,
@@ -101,7 +101,7 @@ describe("Test cases", function() {
     let contract = await u3.contract(creator);
     await contract.vote("obama", { authorization: [`jack@active`] });
 
-    U3Utils.wait(3000);
+    U3Utils.test.wait(3000);
 
     await u3.getTableRecords({
       "json": true,
@@ -127,7 +127,7 @@ describe("Test cases", function() {
     let contract = await u3.contract(creator);
     await contract.vote("trump", { authorization: [`alice@active`] });
 
-    U3Utils.wait(3000);
+    U3Utils.test.wait(3000);
 
     await u3.getTableRecords({
       "json": true,
