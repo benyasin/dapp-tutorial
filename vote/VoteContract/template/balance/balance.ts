@@ -2,7 +2,6 @@ import "allocator/arena";
 import { Contract } from "ultrain-ts-lib/src/contract";
 import { Asset } from "ultrain-ts-lib/src/asset";
 import { send, queryBalance } from "ultrain-ts-lib/lib/balance";
-import { ultrain_assert } from "ultrain-ts-lib/src/utils";
 
 class BalanceContract extends Contract {
 
