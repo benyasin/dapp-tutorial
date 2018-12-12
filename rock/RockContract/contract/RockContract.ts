@@ -51,7 +51,7 @@ class RockContract extends Contract {
 
       //choose the one who has not been rocked
       if (r.number === "" && amount > 0) {
-        let hash = sha1.hash(RNAME(r.name)).substr(0, 7);
+        let hash = sha1.hash(RNAME(r.name));
         r.number = hash.substr(0, 5);
         amount--;
         this.rockDB.modify(this.receiver, r);
