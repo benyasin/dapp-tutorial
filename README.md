@@ -1,7 +1,7 @@
 # dapp-tutorial
 lots of dapp developing tutorials and examples based on ultrain.
 
-### vote
+## vote
 
 mocking the election process of president.
 
@@ -26,7 +26,7 @@ mocking the election process of president.
 * npm run serve
 * select some account in Longclaw and vote some candidate.
 
-### Rock number
+## Rock number
 
 rocking number for buy a car.
 
