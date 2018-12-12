@@ -6,6 +6,7 @@ lots of dapp developing tutorials and examples based on ultrain.
 mocking the election process of president.
 
 1、Only the owner can add some candidates
+
 2、Everyone have one chance for voting one of the candidate
 
 #### Local Environment Setup
@@ -30,6 +31,7 @@ mocking the election process of president.
 rocking number for buy a car.
 
 1、Everyone can input its information by itself
+
 2、Only the owner can rock the number, pass a quantity to release some number
 
 #### Local Environment Setup
