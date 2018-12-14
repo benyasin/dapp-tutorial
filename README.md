@@ -1,13 +1,14 @@
 # dapp-tutorial
-lots of dapp developing tutorials and examples based on ultrain.
 
-## vote
+<b>lots of dapp developing tutorials and examples based on ultrain.</b>
 
-mocking the election process of president.
+## Vote
 
-1、Only the owner can add some candidates
+> mocking the election process of president.
 
-2、Everyone have one chance for voting one of the candidate
+> 1、Only the owner can add some candidates
+
+> 2、Everyone have one chance for voting one of the candidate
 
 #### Local Environment Setup
    
@@ -28,11 +29,11 @@ mocking the election process of president.
 
 ## Rock number
 
-rocking number for buy a car.
+> rocking number for buy a car.
 
-1、Everyone can input its information by itself
+> 1、Everyone can input its information by itself
 
-2、Only the owner can rock the number, pass a quantity to release some number
+> 2、Only the owner can rock the number, pass a quantity to release some number
 
 #### Local Environment Setup
    
