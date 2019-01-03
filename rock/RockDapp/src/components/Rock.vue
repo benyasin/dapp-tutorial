@@ -61,6 +61,7 @@
   const {createU3} = require('u3.js/src')
   const U3Utils = require('u3-utils/src')
   const config = require('../config')
+  let creator = "ben"
   export default {
     name: 'Rock',
     data () {
@@ -76,13 +77,12 @@
       }
     },
     async mounted () {
-      let account = 'ben'
       const u3 = createU3(config)
       const rocktable = 'rock'
       const rockscope = 's.rock'
       let rockResult = await u3.getTableRecords({
         'json': true,
-        'code': account,
+        'code': creator,
         'scope': rockscope,
         'table': rocktable
       })
@@ -96,7 +96,6 @@
         this.rockFormShow = true
       },
       async input () {
-        let creator = 'ben'
         config.keyProvider = this.rockerPK
         const u3 = createU3(config)
         let contract = await u3.contract(creator)
@@ -109,7 +108,6 @@
         document.location.reload()
       },
       async rock () {
-        let creator = 'ben'
         config.keyProvider = this.ownerPK
         const u3 = createU3(config)
         let contract = await u3.contract(creator)

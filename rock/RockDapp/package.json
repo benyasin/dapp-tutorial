@@ -8,8 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "u3-utils": "^0.0.3",
-    "u3.js": "^0.2.10",
+    "u3-utils": "^0.0.4",
+    "u3.js": "^0.2.16",
     "vue": "^2.5.17"
   },
   "devDependencies": {

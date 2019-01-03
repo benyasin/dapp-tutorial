@@ -1378,13 +1378,6 @@ balanced-match@^1.0.0:
   resolved "http://registry.npm.taobao.org/balanced-match/download/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-base-x@^3.0.2:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/base-x/-/base-x-3.0.5.tgz#d3ada59afed05b921ab581ec3112e6444ba0795a"
-  integrity sha512-C3picSgzPSLE+jW3tcBzJoGwitOtazb5B+5YmAxZm2ybmTi9LNgAtDO/jjVEBZwHoXmDBZ9m/IELj3elJVRBcA==
-  dependencies:
-    safe-buffer "^5.0.1"
-
 base64-js@^1.0.2:
   version "1.3.0"
   resolved "http://registry.npm.taobao.org/base64-js/download/base64-js-1.3.0.tgz#cab1e6118f051095e58b5281aea8c1cd22bfc0e3"
@@ -1604,12 +1597,12 @@ browserslist@^4.0.0, browserslist@^4.3.4:
     electron-to-chromium "^1.3.86"
     node-releases "^1.0.5"
 
-bs58@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/bs58/-/bs58-4.0.1.tgz#be161e76c354f6f788ae4071f63f34e8c4f0a42a"
-  integrity sha1-vhYedsNU9veIrkBx9j806MTwpCo=
+bs58-rn@^0.0.3:
+  version "0.0.3"
+  resolved "http://registry.npm.taobao.org/bs58-rn/download/bs58-rn-0.0.3.tgz#62660cf6332db551070d9131d3c4f38411c97a52"
+  integrity sha1-YmYM9jMttVEHDZEx08TzhBHJelI=
   dependencies:
-    base-x "^3.0.2"
+    safe-buffer "^5.1.2"
 
 buffer-from@^1.0.0:
   version "1.1.1"
@@ -7352,17 +7345,17 @@ typedarray@^0.0.6:
   resolved "http://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-u3-utils@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/u3-utils/-/u3-utils-0.0.2.tgz#61ec479ae34986792b6dd9d5e82dc53aab239c03"
-  integrity sha512-Q5BpZCf1LaQBFb0tKL0Eoa7gvCH3JQ7oeYzXwNr3tTXjOz+CN7JrF2Cjjn4qg+7rLRTzOrhIYazlxs9w83fOCQ==
+u3-utils@^0.0.4:
+  version "0.0.4"
+  resolved "http://registry.npm.taobao.org/u3-utils/download/u3-utils-0.0.4.tgz#c3301ceb0e299e9e8e840f3505e656e5fe563b92"
+  integrity sha1-wzAc6w4pnp6OhA81BeZW5f5WO5I=
   dependencies:
     babel-runtime "6.26.0"
     bigi "^1.4.2"
     binaryen "^37.0.0"
     bip39 "^2.5.0"
     browserify-aes "^1.0.6"
-    bs58 "^4.0.1"
+    bs58-rn "^0.0.3"
     bytebuffer "^5.0.1"
     camel-case "^3.0.0"
     clone "^2.1.1"
@@ -7378,40 +7371,14 @@ u3-utils@^0.0.2:
     minimatch "^3.0.4"
     randombytes "^2.0.5"
 
-u3-utils@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/u3-utils/-/u3-utils-0.0.3.tgz#add3636aa9f15173a2fad2b6a91d3556700228d0"
-  integrity sha512-eqFNJ6aC79lEWirVPGNWy0SaNLMltuhbAqXFHZsZu5oNCmz+rLGaGWwU8n52SZSN/G+efTXmeO+HS48PqDa6qw==
-  dependencies:
-    babel-runtime "6.26.0"
-    bigi "^1.4.2"
-    binaryen "^37.0.0"
-    bip39 "^2.5.0"
-    browserify-aes "^1.0.6"
-    bs58 "^4.0.1"
-    bytebuffer "^5.0.1"
-    camel-case "^3.0.0"
-    clone "^2.1.1"
-    create-hash "^1.1.3"
-    create-hmac "^1.1.6"
-    deep-equal "^1.0.1"
-    ecurve "^1.0.5"
-    fcbuffer "^2.2.1"
-    is-node "1.0.2"
-    isomorphic-fetch "^2.2.1"
-    lodash.isempty "^4.4.0"
-    lodash.isstring "^4.0.1"
-    minimatch "^3.0.4"
-    randombytes "^2.0.5"
-
-u3.js@^0.2.10:
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/u3.js/-/u3.js-0.2.10.tgz#9de5457cf216038d1040610573eee51d322c1e02"
-  integrity sha512-7epYpDaCpp+3a+EjqoD2K7WKOgG8opRUaoxtf/QHXTwpxj6BjAl2gp9NvdpG930c52AdJ+P69WNSJSMXca7BfQ==
+u3.js@^0.2.16:
+  version "0.2.16"
+  resolved "http://registry.npm.taobao.org/u3.js/download/u3.js-0.2.16.tgz#cb11e6485fe6d3cb50abc33a24163b4bce85a441"
+  integrity sha1-yxHmSF/m08tQq8M6JBY7S86FpEE=
   dependencies:
     axios "^0.18.0"
     babel-polyfill "^6.26.0"
-    u3-utils "^0.0.2"
+    u3-utils "^0.0.4"
 
 uglify-js@3.4.x:
   version "3.4.9"

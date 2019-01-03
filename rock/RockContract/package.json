@@ -20,8 +20,8 @@
     "robin-lint": "^0.0.1",
     "tslint": "^5.4.3",
     "typescript": "^2.8.3",
-    "u3-utils": "0.0.3",
-    "u3.js": "^0.2.8",
+    "u3-utils": "0.0.4",
+    "u3.js": "^0.2.16",
     "ultrascript": "0.0.12"
   },
   "dependencies": {
