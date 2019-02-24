@@ -95,7 +95,7 @@ class HumanResource extends Contract {
 
   @action
   enumrate(dbname: string): void {
-    let cursor: Cursor<Person> = new Cursor<Person>();
+    let cursor: Cursor<Person>;
     if (dbname == "sales") {
       cursor = this.salesdb.cursor();
     } else if (dbname == "marketing") {

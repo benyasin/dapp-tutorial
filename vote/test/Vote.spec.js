@@ -7,9 +7,7 @@ require("chai")
   .use(require("chai-as-promised"))
   .should();
 
-const should = chai.should();
-
-describe("Test cases", function() {
+describe("Tests", function() {
 
   let creator = "ben";
 

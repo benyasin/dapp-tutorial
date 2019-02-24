@@ -4,6 +4,14 @@
   ],
   "defaultSeverity": "warning",
   "rules": {
+    "no-console": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
+        "message": "Unexpected property on console object was called"
+      }
+    ],
     "as-internal-case": {},
     "as-internal-diagnostics": {},
     "indent": {
@@ -23,11 +31,6 @@
     "member-access": {
       "options": [
         "no-public"
-      ]
-    },
-    "quotemark": {
-      "options": [
-        "double"
       ]
     },
     "semicolon": {
@@ -55,11 +58,6 @@
           "limit": 120,
           "ignore-pattern": " *DiagnosticCode\\.[^ ]+,$"
         }
-      ]
-    },
-    "quotemark": {
-      "options": [
-        "double"
       ]
     },
     "radix": {},
