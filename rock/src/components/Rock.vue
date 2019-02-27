@@ -3,15 +3,12 @@
         <h1>Rock Result</h1>
         <table class="table">
             <thead>
-            <th>
-            <td>NO.</td>
-            </th>
-            <th>
-            <td>Person</td>
-            </th>
-            <th>
-            <td>Number</td>
-            </th></thead>
+            <tr>
+                <th>NO.</th>
+                <th>Person</th>
+                <th>Number</th>
+            </tr>
+            </thead>
             <tbody>
             <tr v-bind:key="v.name" v-for="(v,index) in rocks">
                 <td>{{index+1}}</td>
@@ -33,7 +30,7 @@
                     </div>
 
                     <button :disabled="showLoading" class="vote-btn" @click="input()">{{
-                        showLoading?'waiting...':'Add one' }}
+                        showLoading?"waiting...":"Add one" }}
                     </button>
                 </div>
             </section>
@@ -49,7 +46,7 @@
                     </div>
 
                     <button :disabled="showLoading" class="vote-btn" @click="rock()">{{
-                        showLoading?'waiting...':'Send rock' }}
+                        showLoading?"waiting...":"Send rock" }}
                     </button>
                 </div>
             </section>
@@ -58,78 +55,86 @@
 </template>
 
 <script>
-  const {createU3} = require('u3.js/src')
-  const U3Utils = require('u3-utils/src')
-  const config = require('../config')
-  let creator = "ben"
+  const { createU3 } = require("u3.js/src");
+  const U3Utils = require("u3-utils/src");
+  const config = require("../../config");
+  let creator = "ben";
   export default {
-    name: 'Rock',
-    data () {
+    name: "Rock",
+    data() {
       return {
         inputFormShow: false,
         rockFormShow: false,
         rocks: [],
-        rockerName: '',
-        ownerName: '',
-        rockerPK: '',
-        ownerPK: '',
+        rockerName: "",
+        ownerName: "",
+        rockerPK: "",
+        ownerPK: "",
         showLoading: false
-      }
+      };
     },
-    async mounted () {
-      const u3 = createU3(config)
-      const rocktable = 'rock'
-      const rockscope = 's.rock'
+    async mounted() {
+      const u3 = createU3(config);
+      const rocktable = "rocker";
+      const rockscope = "s.rocker";
       let rockResult = await u3.getTableRecords({
-        'json': true,
-        'code': creator,
-        'scope': rockscope,
-        'table': rocktable
-      })
-      this.rocks = rockResult.rows
+        "json": true,
+        "code": creator,
+        "scope": rockscope,
+        "table": rocktable
+      });
+      this.rocks = rockResult.rows;
     },
     methods: {
-      goToInput () {
-        this.inputFormShow = true
+      goToInput() {
+        this.inputFormShow = true;
       },
-      goToRock () {
-        this.rockFormShow = true
+      goToRock() {
+        this.rockFormShow = true;
       },
-      async input () {
-        config.keyProvider = this.rockerPK
-        const u3 = createU3(config)
-        let contract = await u3.contract(creator)
-        await contract.addPerson(this.rockerName, {authorization: this.rockerName + '@active'})
+      async input() {
+        config.keyProvider = this.rockerPK;
+        const u3 = createU3(config);
+        let contract = await u3.contract(creator);
+        await contract.addPerson(this.rockerName, { authorization: this.rockerName + "@active" });
 
-        this.showLoading = true
+        this.showLoading = true;
         U3Utils.test.wait(4000);
-        this.showLoading = false
+        this.showLoading = false;
 
-        document.location.reload()
+        document.location.reload();
       },
-      async rock () {
-        config.keyProvider = this.ownerPK
-        const u3 = createU3(config)
-        let contract = await u3.contract(creator)
-        let tx = await contract.rock(2, {authorization: this.ownerName + '@active'})
-        this.showLoading = true
+      async rock() {
+        config.keyProvider = this.ownerPK;
+        const u3 = createU3(config);
+        let contract = await u3.contract(creator);
+        let tx = await contract.rock(2, { authorization: this.ownerName + "@active" });
+        this.showLoading = true;
 
-        //wait util it was packed in a block
-        let tx_trace = await u3.getTxByTxId(tx.transaction_id)
-        while (!tx_trace.irreversible) {
-          await new Promise(res => setTimeout(res, 1000))
-          tx_trace = await u3.getTxByTxId(tx.transaction_id)
-          if (tx_trace.irreversible) {
-            //console.log(tx);
-            this.showLoading = false
-            alert('Voted success')
-            document.location.reload()
-            break
+        //wait max a minute util it was packed in a block
+        let tx_trace = await u3.getTxByTxId(tx.transaction_id);
+        let time = 0;
+        let timer = setInterval(async () => {
+          time++;
+          if (time >= 70) {
+            clearInterval(timer);
+            return;
           }
-        }
+          tx_trace = await u3.getTxByTxId(tx.transaction_id);
+          if (tx_trace.irreversible) {
+            this.showLoading = false;
+            alert("Rocked success");
+            clearInterval(timer);
+            document.location.reload();
+          } else {
+            // eslint-disable-next-line
+            console.log("waiting " + time + "s");
+          }
+        }, 1000);
+
       }
     }
-  }
+  };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -4,32 +4,32 @@ import { Action } from "ultrain-ts-lib/src/action";
 import { Log } from "ultrain-ts-lib/src/log";
 import { SHA1 } from "ultrain-ts-lib/src/crypto";
 
-class Rock implements Serializable {
+class Rocker implements Serializable {
   @primaryid
   name: account_name = 0;
   number: string = "";
 }
 
-const rockstable = "rock";
-const rockscope = "s.rock";
+const rockerstable = "rocker";
+const rockerscope = "s.rocker";
 
-@database(Rock, rockstable)
-class RockContract extends Contract {
+@database(Rocker, rockerstable)
+class Rock extends Contract {
 
-  rockDB: DBManager<Rock>;
+  rockerDB: DBManager<Rocker>;
 
   constructor(code: u64) {
     super(code);
-    this.rockDB = new DBManager<Rock>(NAME(rockstable), this.receiver, NAME(rockscope));
+    this.rockerDB = new DBManager<Rocker>(NAME(rockerstable), this.receiver, NAME(rockerscope));
   }
 
   @action
   addPerson(person: account_name): void {
-    let r = new Rock();
+    let r = new Rocker();
     r.name = person;
-    let existing = this.rockDB.exists(person);
+    let existing = this.rockerDB.exists(person);
     if (!existing) {
-      this.rockDB.emplace(this.receiver, r);
+      this.rockerDB.emplace(this.receiver, r);
 
     } else {
       ultrain_assert(false, "you are all ready in the rocker list.");
@@ -40,13 +40,12 @@ class RockContract extends Contract {
   rock(amount: u8): void {
     ultrain_assert(Action.sender == this.receiver, "only contract owner can rock number");
 
-    let cursor: Cursor<Rock>;
-    cursor = this.rockDB.cursor();
+    let cursor: Cursor<Rocker>;
+    cursor = this.rockerDB.cursor();
     Log.s("cursor.count =").i(cursor.count).flush();
     let sha1 = new SHA1();
 
     while (cursor.hasNext()) {
-
       let r = cursor.get();
 
       //choose the one who has not been rocked
@@ -54,7 +53,7 @@ class RockContract extends Contract {
         let hash = sha1.hash(RNAME(r.name));
         r.number = hash.substr(0, 5);
         amount--;
-        this.rockDB.modify(this.receiver, r);
+        this.rockerDB.modify(this.receiver, r);
       }
 
       cursor.next();

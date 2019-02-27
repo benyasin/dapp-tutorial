@@ -14,16 +14,12 @@
    
 * start Longclaw successfully
 
-#### VoteContract
+#### Vote
 
 * npm install
 * robin build
 * robin deploy
 * `mocha test/VoteContract.spec.js -g candidates` or `Run 'candidates'` in WebStorm 
-
-#### VoteDapp
-
-* npm install
 * npm run serve
 * select some account in Longclaw and vote some candidate.
 
@@ -39,16 +35,12 @@
    
 * start Longclaw successfully
 
-#### VoteContract
+#### Vote
 
 * npm install
 * robin build
 * robin deploy
 * `mocha test/RockContract.spec.js -g addPerson` or `Run 'addPerson'` in WebStorm 
-
-#### VoteDapp
-
-* npm install
 * npm run serve
 * select some account in Longclaw and add them as the person waiting for number.
 * Using the owner account to trigger the rock number button.

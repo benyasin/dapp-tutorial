@@ -1,6 +1,7 @@
 import { Contract } from "ultrain-ts-lib/src/contract";
 import { RNAME, NAME } from "ultrain-ts-lib/src/account";
 import { Action } from "ultrain-ts-lib/src/action";
+import { account_name } from "../../../ultrain-ts-lib/internal/alias";
 
 class Votes implements Serializable {
   @primaryid

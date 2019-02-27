@@ -17,7 +17,7 @@ const ACCOUNTTABLE: string = "accounts";
 
 @database(CurrencyStats, STATSTABLE)
 @database(CurrencyAccount, ACCOUNTTABLE)
-export class MyContract extends Contract implements UIP06 {
+export class uip06 extends Contract implements UIP06 {
 
   @action
   public create(issuer: account_name, maximum_supply: Asset): void {

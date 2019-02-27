@@ -12,16 +12,12 @@
             <tbody>
             <tr v-bind:key="v.name" v-for="(v,index) in votes">
                 <td>{{index+1}}</td>
-
                 <td>{{v.name}}</td>
                 <td>{{v.count}}</td>
-
             </tr>
             </tbody>
         </table>
-
         <h4>All candidates</h4>
-
         <div class="form-inline">
             <select v-model="candidate">
                 <option value="">Choose a candidate</option>
@@ -30,16 +26,13 @@
         </div>
 
         <div class="go-to-vote" @click="goToVote()">Start voting</div>
-
         <div class="vote-form" v-show="voteFormShow">
-
             <div class="form-inline">
                 <label>Voter</label><input v-model="voterName"/>
             </div>
             <div class="form-inline">
                 <label>PrivateKey</label><input v-model="privateKey"/>
             </div>
-
             <button :disabled="showLoading" v-show="candidate" class="vote-btn" @click="vote()">{{
                 showLoading?"waiting...":"Send votes" }}
             </button>
@@ -108,19 +101,26 @@
           let tx = await contract.vote(this.candidate, { authorization: this.voterName + "@active" });
           this.showLoading = true;
 
-          //wait util it was packed in a block
+          //wait max a minute util it was packed in a block
           let tx_trace = await u3.getTxByTxId(tx.transaction_id);
-          while (!tx_trace.irreversible) {
-            await new Promise(res => setTimeout(res, 1000));
+          let time = 0;
+          let timer = setInterval(async () => {
+            time++;
+            if (time >= 70) {
+              clearInterval(timer);
+              return;
+            }
             tx_trace = await u3.getTxByTxId(tx.transaction_id);
             if (tx_trace.irreversible) {
-              //console.log(tx);
               this.showLoading = false;
               alert("Voted success");
+              clearInterval(timer);
               document.location.reload();
-              break;
+            } else {
+              // eslint-disable-next-line
+              console.log("waiting " + time + "s");
             }
-          }
+          }, 1000);
         }
       }
     }
