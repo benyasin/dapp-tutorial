@@ -1,5 +1,4 @@
-const U3Utils = require("u3-utils/src");
-const { createU3, format } = require("u3.js/src");
+const { createU3, U3Utils } = require("u3.js");
 const config = require("../config");
 
 const chai = require("chai");
@@ -13,6 +12,7 @@ describe("Tests", function() {
 
   it("candidates", async () => {
     const u3 = createU3(config);
+
     await u3.transaction(creator, c => {
       c.addCandidate("trump", { authorization: [`ben@active`] });
       c.addCandidate("hillary", { authorization: [`ben@active`] });

@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  const { createU3 } = require("u3.js/src");
+  const { createU3, U3Utils } = require("u3.js");
   const config = require("../../config");
   export default {
     name: "Voting",
@@ -56,28 +56,31 @@
         showLoading: false
       };
     },
-    async mounted() {
-      let account = "ben";
-      const u3 = createU3(config);
-      const canditable = "candidate";
-      const candiscope = "s.candidate";
-      let candidates = await u3.getTableRecords({
-        "json": true,
-        "code": account,
-        "scope": candiscope,
-        "table": canditable
-      });
-      this.candidates = candidates.rows;
+    mounted() {
+      let func = async () => {
+        let account = "ben";
+        const u3 = createU3(config);
+        const canditable = "candidate";
+        const candiscope = "s.candidate";
+        let candidates = await u3.getTableRecords({
+          "json": true,
+          "code": account,
+          "scope": candiscope,
+          "table": canditable
+        });
+        this.candidates = candidates.rows;
 
-      const votestable = "votes";
-      const votesscope = "s.votes";
-      let votes = await u3.getTableRecords({
-        "json": true,
-        "code": account,
-        "scope": votesscope,
-        "table": votestable
-      });
-      this.votes = votes.rows.sort(this.compare);
+        const votestable = "votes";
+        const votesscope = "s.votes";
+        let votes = await u3.getTableRecords({
+          "json": true,
+          "code": account,
+          "scope": votesscope,
+          "table": votestable
+        });
+        this.votes = votes.rows.sort(this.compare);
+      };
+      func();
     },
     methods: {
       goToVote() {
@@ -98,29 +101,36 @@
           config.keyProvider = this.privateKey;
           const u3 = createU3(config);
           let contract = await u3.contract(creator);
-          let tx = await contract.vote(this.candidate, { authorization: this.voterName + "@active" });
+          let result = await contract.vote(this.candidate, { authorization: this.voterName + "@active" });
           this.showLoading = true;
 
-          //wait max a minute util it was packed in a block
-          let tx_trace = await u3.getTxByTxId(tx.transaction_id);
-          let time = 0;
-          let timer = setInterval(async () => {
-            time++;
-            if (time >= 70) {
-              clearInterval(timer);
-              return;
-            }
-            tx_trace = await u3.getTxByTxId(tx.transaction_id);
-            if (tx_trace.irreversible) {
-              this.showLoading = false;
-              alert("Voted success");
-              clearInterval(timer);
-              document.location.reload();
-            } else {
-              // eslint-disable-next-line
-              console.log("waiting " + time + "s");
-            }
-          }, 1000);
+          // first check whether the transaction was failed
+          if (!result || result.processed.receipt.status !== "executed") {
+            //console.log("the transaction was failed");
+            alert("Voted failed");
+            this.showLoading = false;
+            return;
+          }
+
+          // then check whether the transaction was irreversible when it was not expired
+          let timeout = new Date(result.transaction.transaction.expiration + "Z") - new Date();
+          let finalResult = false;
+          try {
+            await U3Utils.test.waitUntil(async () => {
+              let tx = await u3.getTxByTxId(result.transaction_id);
+              finalResult = tx && tx.irreversible;
+              if (finalResult) {
+                this.showLoading = false;
+                alert("Voted success");
+                document.location.reload();
+
+                return true;
+              }
+            }, timeout, 1000);
+          } catch (e) {
+            //console.log(finalResult);
+          }
+
         }
       }
     }
