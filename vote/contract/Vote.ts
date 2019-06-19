@@ -1,7 +1,6 @@
 import { Contract } from "ultrain-ts-lib/src/contract";
 import { RNAME, NAME } from "ultrain-ts-lib/src/account";
 import { Action } from "ultrain-ts-lib/src/action";
-import { account_name } from "../../../ultrain-ts-lib/internal/alias";
 
 class Votes implements Serializable {
   @primaryid
@@ -39,9 +38,9 @@ class VoteContract extends Contract {
 
   constructor(code: u64) {
     super(code);
-    this.candidateDB = new DBManager<Candidate>(NAME(canditable), this.receiver, NAME(candiscope));
-    this.votesDB = new DBManager<Votes>(NAME(votestable), this.receiver, NAME(votesscope));
-    this.votersDB = new DBManager<Voters>(NAME(voterstable), this.receiver, NAME(votersscope));
+    this.candidateDB = new DBManager<Candidate>(NAME(canditable), NAME(candiscope));
+    this.votesDB = new DBManager<Votes>(NAME(votestable), NAME(votesscope));
+    this.votersDB = new DBManager<Voters>(NAME(voterstable), NAME(votersscope));
   }
 
   @action
@@ -52,7 +51,7 @@ class VoteContract extends Contract {
     c.name = candidate;
     let existing = this.candidateDB.exists(candidate);
     if (!existing) {
-      this.candidateDB.emplace(this.receiver, c);
+      this.candidateDB.emplace(c);
     } else {
       ultrain_assert(false, "you also add this account as candidate.");
     }
@@ -68,14 +67,14 @@ class VoteContract extends Contract {
     let existing = this.votesDB.get(candidate, votes);
     if (existing) {
       votes.count += 1;
-      this.votesDB.modify(this.receiver, votes);
+      this.votesDB.modify(votes);
     } else {
       votes.count = 1;
-      this.votesDB.emplace(this.receiver, votes);
+      this.votesDB.emplace(votes);
     }
 
     let voters = new Voters();
     voters.name = Action.sender;
-    this.votersDB.emplace(this.receiver, voters);
+    this.votersDB.emplace(voters);
   }
 }
